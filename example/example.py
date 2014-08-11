@@ -3,7 +3,6 @@ import os, sys
 sys.path.insert(1, os.path.join(os.path.dirname(os.path.dirname(__file__)), 'src'))
 
 import json
-from pprint import pprint
 from time import time
 
 from api import get_json
