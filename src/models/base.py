@@ -47,6 +47,20 @@ class RelationshipContainer(object):
     def __getitem__(self, index):
         return self.items[index]
 
+    def __bool__(self):
+        """The Python 3.x override for the behavior of
+        "if RelationshipContainerObject:" so that True is returned only if
+        self.items actually contains items.
+        """
+        return bool(self.items)
+
+    def __nonzero__(self):
+        """The Python 2.x override for the behavior of
+        "if RelationshipContainerObject:" so that True is returned only if
+        self.items actually contains items.
+        """
+        return self.__bool__()
+
     @classmethod
     def from_json(cls, data):
         return cls(data)
