@@ -49,7 +49,7 @@ def get_location_object():
 
 
 def get_multiple_locations():
-    """Serialize multiple coordinated into an iterable of Location objects."""
+    """Serialize multiple coordinates into an iterable of Location objects."""
     coords = ((34.2233, 77.9122), (27.7731, 82.6400))
     locations = get_locations(coords)
     for location in locations:
