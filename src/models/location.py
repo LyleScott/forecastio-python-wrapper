@@ -68,15 +68,7 @@ class Location(object):
         self.alerts = Alerts.from_json(alerts)
 
         from . import Flags
-        self._dash_to_underscore(flags)
         self.flags = Flags.from_json(flags)
-
-    @staticmethod
-    def _dash_to_underscore(data):
-        for key in data:
-            if '-' in key:
-                data[key.replace('-', '_')] = data[key]
-                del data[key]
 
     def __str__(self):
         return self.__repr__()

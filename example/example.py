@@ -2,6 +2,7 @@
 import os, sys
 sys.path.insert(1, os.path.join(os.path.dirname(os.path.dirname(__file__)), 'src'))
 
+import json
 from pprint import pprint
 from time import time
 
@@ -12,17 +13,17 @@ from api import get_locations
 
 def get_request_json():
     """Get the raw JSON response from an API call."""
-    pprint(
-        get_json(37.8267, -122.423)
-    )
+    json_response = get_json(37.8267, -122.423)
+    print json.dumps(json_response, sort_keys=True, indent=4,
+                     separators=(',', ': '))
 
 
 def get_request_json_with_time():
     """Get the raw JSON response from an API call for a specific time."""
     time_ = time()
-    pprint(
-        get_json(37.8267, -122.423, time_)
-    )
+    json_response = get_json(37.8267, -122.423, time_)
+    print json.dumps(json_response, sort_keys=True, indent=4,
+                 separators=(',', ': '))
 
 
 def get_location_object():

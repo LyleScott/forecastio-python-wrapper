@@ -35,6 +35,18 @@ class Flags(object):
     def __repr__(self):
         return '<%s %s>' % (self.__class__.__name__, id(self))
 
+    @staticmethod
+    def _dash_to_underscore(data):
+        """Since we throw the JSON dictionary at the to_json methods to use as
+        kwargs for __init__, we need to make sure the keys are valid Python.
+        Since Python doesn't accept dashes in variable names or kwargs, simply
+        replace instances of dashes in the keys to underscores.
+        """
+        for key in data:
+            if '-' in key:
+                data[key.replace('-', '_')] = data[key]
+                del data[key]
+
     @classmethod
     def from_json(cls, data):
         """Deserialize the JSON data into a model instance.
@@ -42,4 +54,5 @@ class Flags(object):
         :param data: The JSON data to deserialize.
         :return: The model instance built from the JSON data.
         """
+        cls._dash_to_underscore(data)
         return cls(**data)
