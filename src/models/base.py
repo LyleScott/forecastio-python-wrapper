@@ -63,7 +63,12 @@ class RelationshipContainer(object):
 
     @classmethod
     def from_json(cls, data):
-        return cls(data)
+        """Deserialize the JSON data into a model instance.
+
+        :param data: The JSON data to deserialize.
+        :return: The model instance built from the JSON data.
+        """
+        return cls(**data)
 
 
 class DataBlock(RelationshipContainer):
@@ -71,7 +76,7 @@ class DataBlock(RelationshipContainer):
     A data block object represents the various weather phenomena occurring over
     a period of time.
 
-    See https://developer.forecast.io/docs/v2 for parameter definitions.
+    See https://developer.forecast.io/docs/v2 for more info.
 
     Example JSON:
     {
@@ -100,3 +105,6 @@ class DataBlock(RelationshipContainer):
         super(DataBlock, self).__init__(self.model, data)
         self.summary = summary
         self.icon = icon
+
+    def __len__(self):
+        return len(self.items) if self.items else 0

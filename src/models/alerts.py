@@ -55,3 +55,12 @@ class Alerts(RelationshipContainer):
 
     def __init__(self, alerts=None):
         super(Alerts, self).__init__(Alert, alerts)
+
+    @classmethod
+    def from_json(cls, data):
+        """Deserialize the JSON data into a model instance.
+
+        :param data: The JSON data to deserialize.
+        :return: The model instance built from the JSON data.
+        """
+        return cls(data)
