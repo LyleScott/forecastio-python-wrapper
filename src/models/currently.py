@@ -3,6 +3,9 @@ from . import Hour
 
 class Currently(Hour):
     """
+    See https://developer.forecast.io/docs/v2 for more info.
+
+    Example JSON:
     {
         u'apparentTemperature': 62.82,
          u'cloudCover': 0.44,

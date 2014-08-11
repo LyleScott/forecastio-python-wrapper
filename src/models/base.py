@@ -1,5 +1,4 @@
 
-
 class JsonBase(object):
     """
     {
@@ -10,6 +9,7 @@ class JsonBase(object):
         u'time': 1407722580
     }
     """
+    time = None
 
     @classmethod
     def from_json(cls, data):
@@ -28,8 +28,38 @@ class JsonBase(object):
         return self.__repr__()
 
 
-class JsonContainer(object):
+class RelationshipContainer(object):
+    """An object to manage one-to-many relationships with models."""
+    model = None
+    items = None
+
+    def __init__(self, model=None, items=None):
+        self.model = model
+        self.items = [self.model.from_json(item) for item in (items or [])]
+
+    def __str__(self):
+        return self.__repr__()
+
+    def __repr__(self):
+        return '<%s count=%s %s>' % (
+            self.__class__.__name__, len(self.items), id(self))
+
+    def __getitem__(self, index):
+        return self.items[index]
+
+    @classmethod
+    def from_json(cls, data):
+        return cls(data)
+
+
+class DataBlock(RelationshipContainer):
     """
+    A data block object represents the various weather phenomena occurring over
+    a period of time.
+
+    See https://developer.forecast.io/docs/v2 for parameter definitions.
+
+    Example JSON:
     {
         'data': [
             {
@@ -44,29 +74,15 @@ class JsonContainer(object):
         u'summary': u'Partly cloudy for the hour.'
     }
     """
-    child_model = None
-    icon = None
+    model = None
     summary = None
-    hours = None
+    icon = None
+    data = None
 
-    def __init__(self, data=None, icon=None, summary=None):
-        self.items = [self.child_model.from_json(item) for item in (data or [])]
-
-    def __str__(self):
-        return self.__repr__()
-
-    def __repr__(self):
-        return '<%s count=%s %s>' % (
-            self.__class__.__name__, len(self.items), id(self))
-
-    def __getitem__(self, index):
-        return self.items[index]
-
-    @classmethod
-    def from_json(cls, data):
-        """Deserialize the JSON data into a model instance.
-
-        :param data: The JSON data to deserialize.
-        :return: The model instance built from the JSON data.
+    def __init__(self, summary=None, icon=None, data=None):
         """
-        return cls(**data)
+        See https://developer.forecast.io/docs/v2 for parameter definitions.
+        """
+        super(DataBlock, self).__init__(self.model, data)
+        self.summary = summary
+        self.icon = icon

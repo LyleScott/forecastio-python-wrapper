@@ -1,9 +1,12 @@
-from models import JsonBase
-from models import JsonContainer
+from . import DataBlock
+from . import JsonBase
 
 
 class Hour(JsonBase):
     """
+    See https://developer.forecast.io/docs/v2 for more info.
+
+    Example JSON:
     {
         u'apparentTemperature': 62.9,
         u'cloudCover': 0.45,
@@ -26,9 +29,12 @@ class Hour(JsonBase):
     def __init__(self, apparentTemperature=None, cloudCover=None, dewPoint=None,
                  humidity=None, icon=None, nearestStormBearing=None,
                  nearestStormDistance=None, ozone=None, precipIntensity=None,
-                 precipProbability=None, pressure=None, summary=None,
-                 temperature=None, time=None, visibility=None, windBearing=None,
-                 windSpeed=None):
+                 precipType=None, precipProbability=None, pressure=None,
+                 summary=None, temperature=None, time=None, visibility=None,
+                 windBearing=None, windSpeed=None):
+        """
+        See https://developer.forecast.io/docs/v2 for parameter definitions.
+        """
         self.apparentTemperature = apparentTemperature
         self.cloudCover = cloudCover
         self.dewPoint = dewPoint
@@ -38,6 +44,7 @@ class Hour(JsonBase):
         self.nearestStormDistance = nearestStormDistance
         self.ozone = ozone
         self.precipIntensity = precipIntensity
+        self.precipType = precipType
         self.precipProbability = precipProbability
         self.pressure = pressure
         self.summary = summary
@@ -48,5 +55,5 @@ class Hour(JsonBase):
         self.windSpeed = windSpeed
 
 
-class Hours(JsonContainer):
-    child_model = Hour
+class Hours(DataBlock):
+    model = Hour

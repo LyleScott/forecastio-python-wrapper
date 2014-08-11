@@ -12,14 +12,35 @@ from constants import API_URL_FMT
 from models import Location
 
 
-def get_json(lat, lng):
+def get_json(lat, lng, time=None):
     """Get the JSON for an API call.
 
     :param lat: The latitude to use for the API call.
     :param lng: The longitude to use for the API call.
+    :param time: Should either be a UNIX time (that is, seconds since midnight
+                 GMT on 1 Jan 1970) or a string formatted as follows:
+                 [YYYY]-[MM]-[DD]T[HH]:[MM]:[SS] (with an optional time zone
+                 formatted as Z for GMT time or {+,-}[HH][MM] for an offset in
+                 minutes or seconds). For the latter format, if no timezone is
+                 present, local time (at the provided latitude and longitude) is
+                 assumed. (This string format is a subset of ISO 8601 time. An
+                 as example, 2013-05-06T12:00:00-0400.)
+
+                 If a time is provided in this way, only the conditions for the
+                 day on which that time occurred (or will occur),
+                 midnight-to-midnight, are provided; in all other ways, making
+                 such a request is equivalent to getting in a time machine,
+                 going back or forward in time to the given moment, and making
+                 a normal forecast request. (In fact, this is how it is
+                 implemented behind-the-scenes.) Generally speaking, forecasted
+                 data is more accurate the nearer you query to the present
+                 moment. (That is, the present moment if you don't have a time
+                 machine.)
     :return: The API response for the lat/lng combo.
     """
     url = API_URL_FMT % (lat, lng)
+    if time:
+        url = '%s,%s' % (url, time)
     req = requests.get(url)
     location_json = req.json()
     return location_json
@@ -46,5 +67,7 @@ def get_locations(latlngs):
     """
     for lat, lng in latlngs:
         yield get_location(lat, lng)
+
+
 
 

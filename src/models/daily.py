@@ -1,9 +1,12 @@
+from . import DataBlock
 from . import JsonBase
-from . import JsonContainer
 
 
 class Day(JsonBase):
     """
+    See https://developer.forecast.io/docs/v2 for more info.
+
+    Example JSON:
     {
         u'apparentTemperatureMax': 64.08,
         u'apparentTemperatureMaxTime': 1407715200,
@@ -46,6 +49,8 @@ class Day(JsonBase):
                  temperatureMaxTime=None, temperatureMin=None,
                  temperatureMinTime=None, time=None, visibility=None,
                  windBearing=None, windSpeed=None):
+        """See https://developer.forecast.io/docs/v2 for parameter definitions.
+        """
         self.apparentTemperatureMax = apparentTemperatureMax
         self.apparentTemperatureMaxTime = apparentTemperatureMaxTime
         self.apparentTemperatureMin = apparentTemperatureMin
@@ -75,5 +80,5 @@ class Day(JsonBase):
         self.windSpeed = windSpeed
 
 
-class Days(JsonContainer):
-    child_model = Day
+class Days(DataBlock):
+    model = Day

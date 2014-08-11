@@ -1,9 +1,14 @@
+# Bases to uses as bases or mixins for models.
+from .base import DataBlock
+from .base import JsonBase
+from .base import RelationshipContainer
+
+# Models
 from .alerts import Alert
 from .alerts import Alerts
-from .base import JsonBase
-from .base import JsonContainer
 from .daily import Day
 from .daily import Days
+from .flags import Flags
 from .hourly import Hour
 from .hourly import Hours
 from .location import Location

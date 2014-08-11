@@ -1,26 +1,15 @@
-
-
-class Alerts(object):
-
-    def __init__(self, alerts=None):
-        self.alerts = [Alert.from_json(alert) for alert in alerts]
-
-    @classmethod
-    def from_json(cls, data):
-        return cls(data)
-
-    def __str__(self):
-        return self.__repr__()
-
-    def __repr__(self):
-        return '<%s count=%s %s>' % (self.__class__.__name__, len(self.alerts), id(self))
-
-    def __getitem__(self, index):
-        return self.alerts[index]
+from . import RelationshipContainer
 
 
 class Alert(object):
     """
+    An alert object represents a severe weather warning issued for the requested
+    location by a governmental authority (for a list of which authorities we
+    currently support, please see data sources).
+
+    See https://developer.forecast.io/docs/v2 for more info.
+
+    Example JSON:
     {
         u'description': u'...ISOLATED TO SCATTERED THUNDERSTORMS\n',
         u'expires': 1407866400,
@@ -34,13 +23,16 @@ class Alert(object):
     title = None
     uri = None
 
-    def __init__(self, description=None, expires=None, time=None, title=None,
-                 uri=None):
-        self.description = description
-        self.expires = expires
-        self.time = time
+    def __init__(self, title=None, expires=None, description=None, uri=None,
+                 time=None):
+        """
+        See https://developer.forecast.io/docs/v2 for parameter definitions.
+        """
         self.title = title
+        self.expires = expires
+        self.description = description
         self.uri = uri
+        self.time = time
 
     def __str__(self):
         return self.__repr__()
@@ -57,3 +49,9 @@ class Alert(object):
         :return: The model instance built from the JSON data.
         """
         return cls(**data)
+
+
+class Alerts(RelationshipContainer):
+
+    def __init__(self, alerts=None):
+        super(Alerts, self).__init__(Alert, alerts)

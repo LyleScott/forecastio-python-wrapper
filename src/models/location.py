@@ -1,47 +1,82 @@
 
 class Location(object):
-    """A model to serialize an API request to a Python object."""
+    """A model to serialize an API request to a Python object.
+
+    See https://developer.forecast.io/docs/v2 for more info.
+
+    Example JSON:
+    {
+        u'alerts': [{...},],
+        u'currently': {...},
+        u'daily': {
+            u'data': [{...},],
+            u'icon': u'...',
+            u'summary': u'...',
+        },
+        u'flags': {...},
+        u'hourly': {
+            u'data': [{...},],
+            u'icon': u'...',
+            u'summary': u'...',
+        },
+        u'latitude': 12.34,
+        u'longitude': 45.67,
+        u'minutely': {
+            u'data': [{...},],
+            u'icon': u'...',
+            u'summary': u'...',
+        },
+        u'offset': -7,
+        u'timezone': u'America/Los_Angeles'
+    }
+    """
     latitude = None
     longitude = None
-    offset = None
     timezone = None
+    offset = None
+    currently = None
+    minutely = None
+    hourly = None
+    daily = None
+    alerts = None
+    flags = None
 
-    def __init__(self, latitude=None, longitude=None, offset=None,
-                 timezone=None, flags=None, alerts=None, currently=None,
-                 daily=None, hourly=None, minutely=None):
+    def __init__(self, latitude=None, longitude=None, timezone=None,
+                 offset=None, currently=None, minutely=None, hourly=None,
+                 daily=None, alerts=None, flags=None):
         """
-
-        :param latitude:
-        :param longitude:
-        :param offset:
-        :param timezone:
-        :param flags:
-        :param alerts:
-        :param currently:
-        :param daily:
-        :param hourly:
-        :param minutely:
+        See https://developer.forecast.io/docs/v2 for parameter definitions.
         """
         self.latitude = latitude
         self.longitude = longitude
-        self.offset = offset
         self.timezone = timezone
-        self.flags = flags
-
-        from . import Alerts
-        self.alerts = Alerts.from_json(alerts)
+        self.offset = offset
 
         from . import Currently
         self.currently = Currently.from_json(currently)
 
-        from . import Days
-        self.daily = Days.from_json(daily)
+        from . import Minutes
+        self.minutely = Minutes.from_json(minutely)
 
         from . import Hours
         self.hourly = Hours.from_json(hourly)
 
-        from . import Minutes
-        self.minutely = Minutes.from_json(minutely)
+        from . import Days
+        self.daily = Days.from_json(daily)
+
+        from . import Alerts
+        self.alerts = Alerts.from_json(alerts)
+
+        from . import Flags
+        self._dash_to_underscore(flags)
+        self.flags = Flags.from_json(flags)
+
+    @staticmethod
+    def _dash_to_underscore(data):
+        for key in data:
+            if '-' in key:
+                data[key.replace('-', '_')] = data[key]
+                del data[key]
 
     def __str__(self):
         return self.__repr__()
