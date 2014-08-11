@@ -6,6 +6,7 @@ from .daily import Day
 from .daily import Days
 from .hourly import Hour
 from .hourly import Hours
+from .location import Location
 from .minutely import Minute
 from .minutely import Minutes
 

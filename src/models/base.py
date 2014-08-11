@@ -13,10 +13,16 @@ class JsonBase(object):
 
     @classmethod
     def from_json(cls, data):
+        """Deserialize the JSON data into a model instance.
+
+        :param data: The JSON data to serialize.
+        :return: The model instance built from the JSON data.
+        """
         return cls(**data)
 
     def __repr__(self):
-        return '<%s time=%s %s>' % (self.__class__.__name__, self.time, id(self))
+        return '<%s time=%s %s>' % (
+            self.__class__.__name__, self.time, id(self))
 
     def __str__(self):
         return self.__repr__()
@@ -50,11 +56,17 @@ class JsonContainer(object):
         return self.__repr__()
 
     def __repr__(self):
-        return '<%s count=%s %s>' % (self.__class__.__name__, len(self.items), id(self))
+        return '<%s count=%s %s>' % (
+            self.__class__.__name__, len(self.items), id(self))
 
     def __getitem__(self, index):
         return self.items[index]
 
     @classmethod
     def from_json(cls, data):
+        """Deserialize the JSON data into a model instance.
+
+        :param data: The JSON data to deserialize.
+        :return: The model instance built from the JSON data.
+        """
         return cls(**data)

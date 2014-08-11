@@ -1,24 +1,5 @@
-"""
-{u'apparentTemperature': 62.82,
- u'cloudCover': 0.44,
- u'dewPoint': 54.53,
- u'humidity': 0.74,
- u'icon': u'partly-cloudy-day',
- u'nearestStormBearing': 73,
- u'nearestStormDistance': 24,
- u'ozone': 325.42,
- u'precipIntensity': 0,
- u'precipProbability': 0,
- u'pressure': 1013.86,
- u'summary': u'Partly Cloudy',
- u'temperature': 62.82,
- u'time': 1407718980,
- u'visibility': 9.14,
- u'windBearing': 250,
- u'windSpeed': 7.98}
-"""
-from . import JsonContainer
 from . import JsonBase
+from . import JsonContainer
 
 
 class Day(JsonBase):
@@ -54,14 +35,17 @@ class Day(JsonBase):
     }
     """
 
-    def __init__(self, apparentTemperatureMax=None, apparentTemperatureMaxTime=None,
-                 apparentTemperatureMin=None, apparentTemperatureMinTime=None,
-                 cloudCover=None, dewPoint=None, humidity=None, icon=None, moonPhase=None,
+    def __init__(self, apparentTemperatureMax=None,
+                 apparentTemperatureMaxTime=None, apparentTemperatureMin=None,
+                 apparentTemperatureMinTime=None, cloudCover=None,
+                 dewPoint=None, humidity=None, icon=None, moonPhase=None,
                  ozone=None, precipIntensity=None, precipIntensityMax=None,
-                 precipIntensityMaxTime=None, precipProbability=None, precipType=None,
-                 pressure=None, summary=None, sunriseTime=None, sunsetTime=None, temperatureMax=None,
-                 temperatureMaxTime=None, temperatureMin=None, temperatureMinTime=None,
-                 time=None, visibility=None, windBearing=None, windSpeed=None):
+                 precipIntensityMaxTime=None, precipProbability=None,
+                 precipType=None, pressure=None, summary=None,
+                 sunriseTime=None, sunsetTime=None, temperatureMax=None,
+                 temperatureMaxTime=None, temperatureMin=None,
+                 temperatureMinTime=None, time=None, visibility=None,
+                 windBearing=None, windSpeed=None):
         self.apparentTemperatureMax = apparentTemperatureMax
         self.apparentTemperatureMaxTime = apparentTemperatureMaxTime
         self.apparentTemperatureMin = apparentTemperatureMin

@@ -1,8 +1,3 @@
-'''
-fba3b9ccabb3c66e29a4f18e7502d126
-https://api.forecast.io/forecast/fba3b9ccabb3c66e29a4f18e7502d126/37.8267,-122.423
-'''
-
 try:
     import simplejson as json
 except ImportError:
@@ -18,16 +13,38 @@ from models import Location
 
 
 def get_json(lat, lng):
+    """Get the JSON for an API call.
+
+    :param lat: The latitude to use for the API call.
+    :param lng: The longitude to use for the API call.
+    :return: The API response for the lat/lng combo.
+    """
     url = API_URL_FMT % (lat, lng)
-    r = requests.get(url)
-    return r.json()
+    req = requests.get(url)
+    location_json = req.json()
+    return location_json
 
 
 def get_location(lat, lng):
-    json = get_json(37.8267, -122.423)
-    return Location.from_json(json)
+    """Get the Location object for the lat/lng pair.
+
+    :param lat: The latitude to use for the API call.
+    :param lng: The longitude to use for the API call.
+    :returns: The Location model populated with the API response for the
+              lat/lng combo.
+    """
+    location_json = get_json(lat, lng)
+    return Location.from_json(location_json)
 
 
 def get_locations(latlngs):
+    """Serialize lat/lng pairs into Location models.
+
+    :param latlngs: An iterable of lat/lng pairs (ie, (lat, lng) to resolve
+                    into Location models.
+    :returns: A generator of Location models.
+    """
     for lat, lng in latlngs:
         yield get_location(lat, lng)
+
+

@@ -34,19 +34,26 @@ class Alert(object):
     title = None
     uri = None
 
-    def __init__(self, description=None, expires=None, time=None, title=None, uri=None):
+    def __init__(self, description=None, expires=None, time=None, title=None,
+                 uri=None):
         self.description = description
         self.expires = expires
         self.time = time
         self.title = title
         self.uri = uri
 
-    @classmethod
-    def from_json(cls, data):
-        return cls(**data)
-
     def __str__(self):
         return self.__repr__()
 
     def __repr__(self):
-        return '<%s title="%s" time=%s %s>' % (self.__class__.__name__, self.title, self.time, id(self))
+        return '<%s title="%s" time=%s %s>' % (
+            self.__class__.__name__, self.title, self.time, id(self))
+
+    @classmethod
+    def from_json(cls, data):
+        """Deserialize the JSON data into a model instance.
+
+        :param data: The JSON data to deserialize.
+        :return: The model instance built from the JSON data.
+        """
+        return cls(**data)

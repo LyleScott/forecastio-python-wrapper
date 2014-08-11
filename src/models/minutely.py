@@ -13,8 +13,8 @@ class Minute(JsonBase):
     }
     """
 
-    def __init__(self, precipIntensity=None, precipIntensityError=None, precipProbability=None,
-                 precipType=None, time=None):
+    def __init__(self, precipIntensity=None, precipIntensityError=None,
+                 precipProbability=None, precipType=None, time=None):
         self.precipIntensity = precipIntensity
         self.precipIntensityError = precipIntensityError
         self.precipProbability = precipProbability
@@ -24,6 +24,5 @@ class Minute(JsonBase):
 
 class Minutes(JsonContainer):
     """
-
     """
     child_model = Minute

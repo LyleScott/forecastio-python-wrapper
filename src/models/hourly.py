@@ -23,10 +23,12 @@ class Hour(JsonBase):
     }
     """
 
-    def __init__(self, apparentTemperature=None, cloudCover=None, dewPoint=None, humidity=None, icon=None,
-                 nearestStormBearing=None, nearestStormDistance=None, ozone=None,
-                 precipIntensity=None, precipProbability=None, pressure=None, summary=None,
-                 temperature=None, time=None, visibility=None, windBearing=None, windSpeed=None):
+    def __init__(self, apparentTemperature=None, cloudCover=None, dewPoint=None,
+                 humidity=None, icon=None, nearestStormBearing=None,
+                 nearestStormDistance=None, ozone=None, precipIntensity=None,
+                 precipProbability=None, pressure=None, summary=None,
+                 temperature=None, time=None, visibility=None, windBearing=None,
+                 windSpeed=None):
         self.apparentTemperature = apparentTemperature
         self.cloudCover = cloudCover
         self.dewPoint = dewPoint
