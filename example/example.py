@@ -10,19 +10,21 @@ from api import get_location
 from api import get_locations
 
 
+def _pretty_json(data):
+    print json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
+
+
 def get_request_json():
     """Get the raw JSON response from an API call."""
     json_response = get_json(37.8267, -122.423)
-    print json.dumps(json_response, sort_keys=True, indent=4,
-                     separators=(',', ': '))
+    print _pretty_json(json_response)
 
 
 def get_request_json_with_time():
     """Get the raw JSON response from an API call for a specific time."""
     time_ = time()
     json_response = get_json(37.8267, -122.423, time_)
-    print json.dumps(json_response, sort_keys=True, indent=4,
-                 separators=(',', ': '))
+    print _pretty_json(json_response)
 
 
 def get_location_object():
