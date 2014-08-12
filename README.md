@@ -3,7 +3,9 @@ forecastio-wrapper
 
 A Python wrapper for the [forcastio API service](https://forecast.io).
 
-THIS LIBRARY STILL IN DEVELOPMENT. NOT AT ALL READY FOR CONSUMPTION.
+THIS LIBRARY STILL IN DEVELOPMENT. I am in the middle of writing tests for the
+API and will be refactoring [TideNugget.com](http://tidenugget.com) to use it.
+Until this, I can only guarantee that it _should_ work.
 
 
 Goal
