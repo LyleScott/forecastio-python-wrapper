@@ -1,6 +1,6 @@
 import unittest
 
-from src import constants_example as constants
+from forecastiowrap import constants_example as constants
 
 
 class ConstantsTest(unittest.TestCase):

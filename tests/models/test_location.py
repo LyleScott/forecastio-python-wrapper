@@ -1,5 +1,5 @@
 from tests import JsonFixture
-from src.models import Location
+from forecastiowrap.models import Location
 
 
 class TestLocation(JsonFixture):

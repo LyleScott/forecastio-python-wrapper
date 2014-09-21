@@ -3,3 +3,4 @@
 constants.py
 *.swp
 *~
+forecastio_python_wrapper.egg-info/

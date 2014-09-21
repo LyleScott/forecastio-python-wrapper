@@ -1,6 +1,5 @@
 from tests import JsonFixture
-from src.models.minutely import Minute
-from src.models.minutely import Minutes
+from forecastiowrap.models.minutely import Minutes
 
 
 class TestMinutes(JsonFixture):

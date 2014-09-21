@@ -1,5 +1,5 @@
 from tests import JsonFixture
-from src.models import Flags
+from forecastiowrap.models import Flags
 
 
 class TestFlags(JsonFixture):
