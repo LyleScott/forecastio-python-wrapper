@@ -8,72 +8,106 @@ except ImportError:
 
 import requests
 
-from constants import API_URL_FMT
-from models import Location
+from forecastiowrap.models import Location
 
 
-def get_json(lat, lng, time=None, exclude_keys=None):
-    """Get the JSON for an API call.
-
-    :param lat: The latitude to use for the API call.
-    :param lng: The longitude to use for the API call.
-    :param time: Should either be a UNIX time (that is, seconds since midnight
-                 GMT on 1 Jan 1970) or a string formatted as follows:
-                 [YYYY]-[MM]-[DD]T[HH]:[MM]:[SS] (with an optional time zone
-                 formatted as Z for GMT time or {+,-}[HH][MM] for an offset in
-                 minutes or seconds). For the latter format, if no timezone is
-                 present, local time (at the provided latitude and longitude) is
-                 assumed. (This string format is a subset of ISO 8601 time. An
-                 as example, 2013-05-06T12:00:00-0400.)
-
-                 If a time is provided in this way, only the conditions for the
-                 day on which that time occurred (or will occur),
-                 midnight-to-midnight, are provided; in all other ways, making
-                 such a request is equivalent to getting in a time machine,
-                 going back or forward in time to the given moment, and making
-                 a normal forecast request. (In fact, this is how it is
-                 implemented behind-the-scenes.) Generally speaking, forecasted
-                 data is more accurate the nearer you query to the present
-                 moment. (That is, the present moment if you don't have a time
-                 machine.)
-    :return: The API response for the lat/lng combo.
+class ForecastioWrapper(object):
+    """A driver object to facilitate interacting with the forecastio api in a
+    pythonic way.
     """
-    url = API_URL_FMT % (lat, lng)
-    if time:
-        url = '%s,%s' % (url, time)
-    req = requests.get(url)
-    location_json = req.json()
-    for key in (exclude_keys or []):
-        del location_json[key]
 
-    return location_json
+    API_URL_FMT = 'https://api.forecast.io/forecast/{}/%s,%s'
 
+    def __init__(self, api_key):
+        """Create a ForecastioWrapper object to hold the API key and caches.
 
-def get_location(lat, lng, time=None, json_only=False, exclude_keys=None):
-    """Get the Location object for the lat/lng pair.
+        :param api_key: The developer key provided by forecastio.
+        :type api_key: basestring
+        """
+        self.api_key = api_key
+        self.api_url_prefix = self.API_URL_FMT % api_key
 
-    :param lat: The latitude to use for the API call.
-    :param lng: The longitude to use for the API call.
-    :returns: The Location model populated with the API response for the
-              lat/lng combo.
-    """
-    location_json = get_json(lat, lng, time=time, exclude_keys=exclude_keys)
-    if json_only:
+    def _get_api_response(self, url):
+        response = requests.get(url)
+        if response.status_code != 200:
+            raise InvalidApiResponse(
+                'The request to "{}" failed with the response {}'.format(
+                    url, response.text))
+        return response.json()
+
+    def _exclude_keys_from_json(self, location_json, keys):
+        """A helper to exclude/remove keys from the JSON response.
+
+        :param location_json: The JSON dict to remove keys from.
+        :type location_json: dict
+        :param keys: The keys to remove from the JSON dict.
+        :type keys: iter
+        :returns: The JSON dict, minus and of the keys that were to be removed.
+        :rtype: dict
+        """
+        for key in (keys or []):
+            del location_json[key]
+
+    def get_location_json(self, lat, lng, time=None, exclude_keys=None):
+        """Get the JSON for an API call.
+
+        :param lat: The latitude to use for the API call.
+        :type lat: float
+        :param lng: The longitude to use for the API call.
+        :type lng: float
+        :param time: Epoch or [YYYY]-[MM]-[DD]T[HH]:[MM]:[SS][{+,-}[HH][MM]]
+            For example, 1412528274 or 2014-10-05T16:59:39+0800
+            NOTE: When using this parameter, you weather from mid-night to
+            mid-night.
+        :return: The JSON dict from the forecastio api response.
+        :rtype: dict
+        """
+        url = self.api_url_prefix % (lat, lng)
+        if time:
+            url = '%s,%s' % (url, time)
+
+        location_json = self._get_api_response(url)
+        self._exclude_keys_from_json(location_json, exclude_keys)
+
         return location_json
 
-    return Location.from_json(location_json)
+    def get_location(self, lat, lng, time=None, exclude_keys=None):
+        """Get the Location object for the lat/lng pair.
+
+        :param lat: The latitude to use for the API call.
+        :type lat: float
+        :param lng: The longitude to use for the API call.
+        :type lng: float
+        :param time:
+        :type time:
+        :param exclude_keys: The attributes to exclude from created Location.
+        :param exclude_keys: None or iter
+        :returns: A Location that was deserialized from a forecastio api
+            response.
+        :rtype: Location
+        """
+        location_json = self.get_location_json(
+            lat, lng, time=time, exclude_keys=exclude_keys)
+
+        return Location.from_json(location_json)
+
+    def get_locations(self, latlngs, time=None, json_only=False,
+                      exclude_keys=None):
+        """Serialize lat/lng pairs into Location models.
+
+        :param latlngs: An iterable of lat/lng pairs (ie, (lat, lng) to resolve
+            into Location models.
+        :type latlngs: tuple of (int, int) pairs
+        :returns: A generator of Location models.
+        """
+        for lat, lng in latlngs:
+            if json_only:
+                yield self.get_location_json(
+                    lat, lng, time=time, exclude_keys=exclude_keys)
+            else:
+                yield self.get_location(
+                    lat, lng, time=time, exclude_keys=exclude_keys)
 
 
-def get_locations(latlngs):
-    """Serialize lat/lng pairs into Location models.
-
-    :param latlngs: An iterable of lat/lng pairs (ie, (lat, lng) to resolve
-                    into Location models.
-    :returns: A generator of Location models.
-    """
-    for lat, lng in latlngs:
-        yield get_location(lat, lng)
-
-
-
-
+class InvalidApiResponse(Exception):
+    """A custom Exception used for invalid forcastio api responses."""

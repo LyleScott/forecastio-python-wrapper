@@ -77,13 +77,20 @@ class Location(object):
         return '<%s lat=%s lng=%s %s>' % (
             self.__class__.__name__, self.latitude, self.longitude, id(self))
 
+    def to_json(self):
+        """Serialize this Location into JSON.
+        :returns: The JSON analog to this Location object.
+        :rtype: basestring
+        """
+        # TODO
+        pass
+
     @classmethod
     def from_json(cls, data):
         """Deserialize the JSON data into a model instance.
 
         :param data: The JSON data to deserialize.
         :return: The model instance built from the JSON data.
+        :rtype: Location
         """
         return cls(**data)
-
-
