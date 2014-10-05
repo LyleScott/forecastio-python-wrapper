@@ -55,8 +55,11 @@ class Location(object):
         from . import Currently
         self.currently = Currently.from_json(currently)
 
-        from . import Minutes
-        self.minutely = Minutes.from_json(minutely)
+        if minutely is not None:
+            from . import Minutes
+            self.minutely = Minutes.from_json(minutely)
+        else:
+            self.minutely = []
 
         from . import Hours
         self.hourly = Hours.from_json(hourly)
