@@ -12,7 +12,7 @@ from constants import API_URL_FMT
 from models import Location
 
 
-def get_json(lat, lng, time=None):
+def get_json(lat, lng, time=None, exclude_keys=None):
     """Get the JSON for an API call.
 
     :param lat: The latitude to use for the API call.
@@ -43,10 +43,13 @@ def get_json(lat, lng, time=None):
         url = '%s,%s' % (url, time)
     req = requests.get(url)
     location_json = req.json()
+    for key in (exclude_keys or []):
+        del location_json[key]
+
     return location_json
 
 
-def get_location(lat, lng):
+def get_location(lat, lng, time=None, json_only=False, exclude_keys=None):
     """Get the Location object for the lat/lng pair.
 
     :param lat: The latitude to use for the API call.
@@ -54,7 +57,10 @@ def get_location(lat, lng):
     :returns: The Location model populated with the API response for the
               lat/lng combo.
     """
-    location_json = get_json(lat, lng)
+    location_json = get_json(lat, lng, time=time, exclude_keys=exclude_keys)
+    if json_only:
+        return location_json
+
     return Location.from_json(location_json)
 
 

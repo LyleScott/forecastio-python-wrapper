@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from . import RelationshipContainer
 
 
@@ -33,12 +35,13 @@ class Alert(object):
         self.description = description
         self.uri = uri
         self.time = time
+        self.time_ = datetime.fromtimestamp(time)
 
     def __str__(self):
         return self.__repr__()
 
     def __repr__(self):
-        return '<%s title="%s" time=%s %s>' % (
+        return '<%s title="{}" time={} {}>'.format(
             self.__class__.__name__, self.title, self.time, id(self))
 
     @classmethod

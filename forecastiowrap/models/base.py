@@ -9,7 +9,7 @@ class JsonBase(object):
         u'time': 1407722580
     }
     """
-    time = None
+    time_ = None
 
     @classmethod
     def from_json(cls, data):
@@ -21,8 +21,8 @@ class JsonBase(object):
         return cls(**data)
 
     def __repr__(self):
-        return '<%s time=%s %s>' % (
-            self.__class__.__name__, self.time, id(self))
+        return '<{} time="{}" {}>'.format(
+            self.__class__.__name__, self.time_, id(self))
 
     def __str__(self):
         return self.__repr__()
@@ -41,7 +41,7 @@ class RelationshipContainer(object):
         return self.__repr__()
 
     def __repr__(self):
-        return '<%s count=%s %s>' % (
+        return '<{} count={} {}>'.format(
             self.__class__.__name__, len(self.items), id(self))
 
     def __getitem__(self, index):

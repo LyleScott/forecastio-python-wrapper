@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from . import DataBlock
 from . import JsonBase
 
@@ -26,9 +28,9 @@ class Minute(JsonBase):
         self.precipProbability = precipProbability
         self.precipType = precipType
         self.time = time
+        self.time_ = datetime.fromtimestamp(time)
 
 
 class Minutes(DataBlock):
-    """
-    """
+    """A container to hold minute models."""
     model = Minute

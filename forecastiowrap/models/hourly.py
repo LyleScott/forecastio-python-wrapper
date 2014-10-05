@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from . import DataBlock
 from . import JsonBase
 
@@ -29,6 +31,7 @@ class Hour(JsonBase):
     def __init__(self, apparentTemperature=None, cloudCover=None, dewPoint=None,
                  humidity=None, icon=None, nearestStormBearing=None,
                  nearestStormDistance=None, ozone=None, precipIntensity=None,
+                 precipIntensityError=None,
                  precipType=None, precipProbability=None, pressure=None,
                  summary=None, temperature=None, time=None, visibility=None,
                  windBearing=None, windSpeed=None):
@@ -44,16 +47,19 @@ class Hour(JsonBase):
         self.nearestStormDistance = nearestStormDistance
         self.ozone = ozone
         self.precipIntensity = precipIntensity
+        self.precipIntensityError = precipIntensityError
         self.precipType = precipType
         self.precipProbability = precipProbability
         self.pressure = pressure
         self.summary = summary
         self.temperature = temperature
         self.time = time
+        self.time_ = datetime.fromtimestamp(time)
         self.visibility = visibility
         self.windBearing = windBearing
         self.windSpeed = windSpeed
 
 
 class Hours(DataBlock):
+    """A container to hold hour models."""
     model = Hour

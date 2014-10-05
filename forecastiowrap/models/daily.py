@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from . import DataBlock
 from . import JsonBase
 
@@ -75,10 +77,12 @@ class Day(JsonBase):
         self.temperatureMin = temperatureMin
         self.temperatureMinTime = temperatureMinTime
         self.time = time
+        self.time_ = datetime.fromtimestamp(time)
         self.visibility = visibility
         self.windBearing = windBearing
         self.windSpeed = windSpeed
 
 
 class Days(DataBlock):
+    """A container to hold day models."""
     model = Day
