@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from . import DataBlock
 from . import JsonBase
 
@@ -54,7 +52,6 @@ class Hour(JsonBase):
         self.summary = summary
         self.temperature = temperature
         self.time = time
-        self.time_ = datetime.fromtimestamp(time)
         self.visibility = visibility
         self.windBearing = windBearing
         self.windSpeed = windSpeed
