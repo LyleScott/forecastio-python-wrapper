@@ -56,30 +56,19 @@ The Location model
 The main model is Location. It serializes a response from the forecastio 
 API request to Python objects.
 
-It contains the following attributes:
-
-* minutely
- * contains list of minute models
-* hourly
- * contains list of hourly models
-* daily
- * contains a list of day models
-* alerts
- * contains a list of alert models
-* flags
- * contains attributes representing flags for the response
-* currently
- * contains attributes representing the current weather
-* latitude
- * the latitude of the location for the forecast
-* longitude
- * the longitude of the location for the forecast
-* offset
- * the timezone UTC offset
-* timezone
- * the timezone for the request
-* from_json
- * create a Location from a forecastio JSON response
+Attribute | 
+--------- | ----------
+minutely  | contains list of minute models
+hourly    | contains list of hourly models
+daily     | contains a list of day models
+alerts    | contains a list of alert models
+flags     | contains attributes representing flags for the response
+currently | contains attributes representing the current weather
+latitude  | the latitude of the location for the forecast
+longitude | the longitude of the location for the forecast
+offset    | the timezone UTC offset
+timezone  | the timezone for the request
+from_json | create a Location from a forecastio JSON response
 
 
 ### Weather forecast data points
