@@ -6,9 +6,8 @@ A Python wrapper for the [forcastio API service](https://forecast.io).
 This projects provides a way to serialize a forecastio JSON response into
 python models that make navigating weather data straightforward.
 
-THIS LIBRARY STILL IN DEVELOPMENT. I am in the middle of writing tests for the
-API and will be refactoring [TideNugget.com](http://tidenugget.com) to use it.
-Until this, I can only guarantee that it _should_ work.
+This library is still in some development flux as I use it more and fill in the
+gaps. It is very usable, as I use it in some live projects.
 
 Getting Started
 ---------------
