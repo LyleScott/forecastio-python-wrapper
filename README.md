@@ -71,7 +71,7 @@ timezone  | the timezone for the request
 from_json | create a Location from a forecastio JSON response
 
 
-### Weather forecast data points
+#### Weather forecast data points
 
 Currently	|	Minute	|	Hour	|	Day
 ------------	|	------------	|	------------	|	------------
@@ -106,7 +106,7 @@ apparentTemperature	|		|	apparentTemperature	|	apparentTemperatureMax
 	|		|		|	 windSpeed
 	
 	
-### Misc data points
+#### Misc data points
 
 Alerts	|	Flags
 ------------	|	------------
@@ -122,7 +122,7 @@ from_json	|	darksky_stations
 	|	 units
 
 
-### Managers of lists of data points
+#### Managers of lists of data points
 
 Minutely	|	Hourly	|	Daily
 ------------	|	------------	|	------------
