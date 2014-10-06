@@ -50,11 +50,13 @@ hourly_forecast = location.hourly   # next 49 hours if weather
 
 Read below for more in-depth documention on how the JSON responses are modeled.
 
-The Location Model
+Models
 ------------------
 
-Holds lists of weather items.
-* currently
+The main model is Location. It serializes a response from the forecastio 
+API request.
+
+Attributes containing weather lists.
 * minutely
 * hourly
 * daily
@@ -62,6 +64,7 @@ Holds lists of weather items.
 * flags
 
 Location attributes.
+* currently
 * latitude
 * longitude
 * offset
@@ -70,18 +73,7 @@ Location attributes.
 Utility method to create a Location from a forecastio JSON response.
 * from_json
 
-Minutely	|	Hourly	|	Daily	|	Alerts	|	Flags
-------------	|	------------	|	------------	|	------------	|	------------
-data	|	data	|	data	|	from_json	|	darksky_stations
- from_json	|	 from_json	|	 from_json	|	 items	|	 darksky_unavailable
- icon	|	 icon	|	 icon	|	 model	|	 datapoint_stations
- items	|	 items	|	 items	|		|	 from_json
- model	|	 model	|	 model	|		|	 isd_stations
- summary	|	 summary	|	 summary	|		|	 lamp_stations
-	|		|		|		|	 madis_stations
-	|		|		|		|	 metar_stations
-	|		|		|		|	 sources
-	|		|		|		|	 units
+Attributes for weather forecast data points:
 
 Currently	|	Minute	|	Hour	|	Day
 ------------	|	------------	|	------------	|	------------
@@ -114,6 +106,34 @@ apparentTemperature	|		|	apparentTemperature	|	apparentTemperatureMax
 	|		|		|	 visibility
 	|		|		|	 windBearing
 	|		|		|	 windSpeed
+	
+	
+Miscellaneous data points:
+
+Alerts	|	Flags
+------------	|	------------
+from_json	|	darksky_stations
+ items	|	 darksky_unavailable
+ model	|	 datapoint_stations
+	|	 from_json
+	|	 isd_stations
+	|	 lamp_stations
+	|	 madis_stations
+	|	 metar_stations
+	|	 sources
+	|	 units
+
+
+Intermediate attributes used to manage lists of data points
+
+Minutely	|	Hourly	|	Daily
+------------	|	------------	|	------------
+data	|	data	|	data
+ from_json	|	 from_json	|	 from_json
+ icon	|	 icon	|	 icon
+ items	|	 items	|	 items
+ model	|	 model	|	 model
+ summary	|	 summary	|	 summary
 
 
 Contact
