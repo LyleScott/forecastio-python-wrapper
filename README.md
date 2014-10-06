@@ -70,11 +70,19 @@ Location attributes.
 Utility method to create a Location from a forecastio JSON response.
 * from_json
 
-| currently     | Minutely      | Hourly       | Daily        |
-| ------------- | ------------- | ------------ | ------------ |
-| col 3 is      | right-aligned | $1600        |              |
-| col 2 is      | centered      |   $12        |
-| zebra stripes | are neat      |    $1        |
+Minutely	|	Hourly	|	Daily	|	Alerts	|	Flags
+------------	|	------------	|	------------	|	------------	|	------------
+data	|	data	|	data	|	from_json	|	darksky_stations
+ from_json	|	 from_json	|	 from_json	|	 items	|	 darksky_unavailable
+ icon	|	 icon	|	 icon	|	 model	|	 datapoint_stations
+ items	|	 items	|	 items	|		|	 from_json
+ model	|	 model	|	 model	|		|	 isd_stations
+ summary	|	 summary	|	 summary	|		|	 lamp_stations
+	|		|		|		|	 madis_stations
+	|		|		|		|	 metar_stations
+	|		|		|		|	 sources
+	|		|		|		|	 units
+
 
 
 Contact
