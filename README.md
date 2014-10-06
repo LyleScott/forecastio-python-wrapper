@@ -70,11 +70,11 @@ Location attributes.
 Utility method to create a Location from a forecastio JSON response.
 * from_json
 
-| currently | Minutely | Hourly | Daily 
-| ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | $1600 |
-| col 2 is      | centered      |   $12 |
-| zebra stripes | are neat      |    $1 |
+| currently     | Minutely      | Hourly       | Daily        |
+| ------------- | ------------- | ------------ | ------------ |
+| col 3 is      | right-aligned | $1600        |              |
+| col 2 is      | centered      |   $12        |
+| zebra stripes | are neat      |    $1        |
 
 
 Contact
