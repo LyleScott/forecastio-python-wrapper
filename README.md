@@ -73,7 +73,7 @@ Location attributes.
 Utility method to create a Location from a forecastio JSON response.
 * from_json
 
-Attributes for weather forecast data points:
+## Weather forecast data points
 
 Currently	|	Minute	|	Hour	|	Day
 ------------	|	------------	|	------------	|	------------
@@ -108,7 +108,7 @@ apparentTemperature	|		|	apparentTemperature	|	apparentTemperatureMax
 	|		|		|	 windSpeed
 	
 	
-Miscellaneous data points:
+## Misc data points
 
 Alerts	|	Flags
 ------------	|	------------
@@ -124,7 +124,7 @@ from_json	|	darksky_stations
 	|	 units
 
 
-Intermediate attributes used to manage lists of data points
+## Managers of lists of data points
 
 Minutely	|	Hourly	|	Daily
 ------------	|	------------	|	------------
