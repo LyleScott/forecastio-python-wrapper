@@ -48,8 +48,27 @@ daily_forecast = location.daily     # 7 day forecast
 hourly_forecast = location.hourly   # next 49 hours if weather
 ```
 
+Read below for more in-depth documention on how the JSON responses are modeled.
+
 The Location Model
 ------------------
+
+### Holds lists of weather items.
+* currently
+* minutely
+* hourly
+* daily
+* alerts
+* flags
+
+### Location attributes.
+* latitude
+* longitude
+* offset
+* timezone
+
+### Utility method to create a Location from a forecastio JSON response.
+* from_json
 
 
 Contact
