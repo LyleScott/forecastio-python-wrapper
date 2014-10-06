@@ -17,11 +17,19 @@ I don't really plan to do anything fancy, but I do want to make sure this
 API is super simple, straightforward, and performant.
 
 
-Example
--------
+Getting Started
+---------------
+
+Create a ForecastioWrapper instance and supply it with your API key.
+
+> If you don't have a key, get a free one from the
+> [forecastio developer portal](https://developer.forecast.io/)
+
+After you create a ForecastioWrapper instance, you have a controller for making
+requests to the forecastio restful API and serializing the forecastio JSON
+responses into pythonic models.
 
 ```python
-
 from forecastiowrap import ForecastioWrapper
 
 API_KEY = 'fba3b9ccabb3c66e29a4f18e7502d126'
@@ -29,8 +37,10 @@ API_KEY = 'fba3b9ccabb3c66e29a4f18e7502d126'
 forecastio = ForecastioWrapper(API_KEY)
 # 27.7731 N, 82.6400 W   (Saint Petersburg, Florida, USA)
 location = forecastio.get_location(27.7731, 82.6400)
-
 ```
+
+Docs
+----
 
 
 Contact
