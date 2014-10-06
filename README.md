@@ -83,6 +83,37 @@ data	|	data	|	data	|	from_json	|	darksky_stations
 	|		|		|		|	 sources
 	|		|		|		|	 units
 
+Currently	|	Minute	|	Hour	|	Day
+------------	|	------------	|	------------	|	------------
+apparentTemperature	|		|	apparentTemperature	|	apparentTemperatureMax
+ cloudCover	|		|	 cloudCover	|	 apparentTemperatureMaxTime
+ dewPoint	|		|	 dewPoint	|	 apparentTemperatureMin
+ from_json	|		|	 from_json	|	 apparentTemperatureMinTime
+ humidity	|		|	 humidity	|	 cloudCover
+ icon	|		|	 icon	|	 dewPoint
+ nearestStormBearing	|		|	 nearestStormBearing	|	 from_json
+ nearestStormDistance	|		|	 nearestStormDistance	|	 humidity
+ ozone	|		|	 ozone	|	 icon
+ precipIntensity	|		|	 precipIntensity	|	 moonPhase
+ precipIntensityError	|		|	 precipIntensityError	|	 ozone
+ precipProbability	|		|	 precipProbability	|	 precipIntensity
+ precipType	|		|	 precipType	|	 precipIntensityMax
+ pressure	|		|	 pressure	|	 precipIntensityMaxTime
+ summary	|		|	 summary	|	 precipProbability
+ temperature	|		|	 temperature	|	 precipType
+ time	|		|	 time	|	 pressure
+ time_	|		|	 time_	|	 summary
+ visibility	|		|	 visibility	|	 sunriseTime
+ windBearing	|		|	 windBearing	|	 sunsetTime
+ windSpeed	|		|	 windSpeed	|	 temperatureMax
+	|		|		|	 temperatureMaxTime
+	|		|		|	 temperatureMin
+	|		|		|	 temperatureMinTime
+	|		|		|	 time
+	|		|		|	 time_
+	|		|		|	 visibility
+	|		|		|	 windBearing
+	|		|		|	 windSpeed
 
 
 Contact

@@ -9,7 +9,15 @@ forecastio = ForecastioWrapper(API_KEY)
 # 27.7731 N, 82.6400 W  ==  Saint Petersburg, Florida, USA
 location = forecastio.get_location(27.7731, 82.6400)
 
-pprint([attr for attr in dir(location.flags) if not attr.startswith('_')] * 4)
+#pprint([attr for attr in dir(location.minutely[0]) if not attr.startswith('_')])
+
+print
+
+pprint([attr for attr in dir(location.hourly[0]) if not attr.startswith('_')])
+
+print
+
+pprint([attr for attr in dir(location.daily[0]) if not attr.startswith('_')])
 
 sys.exit()
 print(location)
