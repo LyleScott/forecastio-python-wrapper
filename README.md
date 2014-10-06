@@ -3,19 +3,12 @@ forecastio-python-wrapper
 
 A Python wrapper for the [forcastio API service](https://forecast.io).
 
+This projects provides a way to serialize a forecastio JSON response into
+python models that make navigating weather data straightforward.
+
 THIS LIBRARY STILL IN DEVELOPMENT. I am in the middle of writing tests for the
 API and will be refactoring [TideNugget.com](http://tidenugget.com) to use it.
 Until this, I can only guarantee that it _should_ work.
-
-
-Goal
-----
-
-Create a simple API that follows the
-[forecast.io development docs nomenclature](https://developer.forecast.io).
-I don't really plan to do anything fancy, but I do want to make sure this
-API is super simple, straightforward, and performant.
-
 
 Getting Started
 ---------------
@@ -70,7 +63,6 @@ offset    | the timezone UTC offset
 timezone  | the timezone for the request
 from_json | create a Location from a forecastio JSON response
 
-
 #### Weather forecast data points
 
 Currently	|	Minute	|	Hour	|	Day
@@ -105,7 +97,6 @@ apparentTemperature	|		|	apparentTemperature	|	apparentTemperatureMax
 	|		|		|	 windBearing
 	|		|		|	 windSpeed
 	
-	
 #### Misc data points
 
 Alerts	|	Flags
@@ -121,7 +112,6 @@ from_json	|	darksky_stations
 	|	 sources
 	|	 units
 
-
 #### Managers of lists of data points
 
 Minutely	|	Hourly	|	Daily
@@ -132,7 +122,6 @@ data	|	data	|	data
  items	|	 items	|	 items
  model	|	 model	|	 model
  summary	|	 summary	|	 summary
-
 
 Contact
 -------
