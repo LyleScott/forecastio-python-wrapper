@@ -3,61 +3,124 @@ forecastio-python-wrapper
 
 A Python wrapper for the [forcastio API service](https://forecast.io).
 
-THIS LIBRARY STILL IN DEVELOPMENT. I am in the middle of writing tests for the
-API and will be refactoring [TideNugget.com](http://tidenugget.com) to use it.
-Until this, I can only guarantee that it _should_ work.
+This projects provides a way to serialize a forecastio JSON response into
+python models that make navigating weather data straightforward.
 
+This library is still in some development flux as I use it more and fill in the
+gaps. It is very usable, as I use it in some live projects.
 
-Goal
-----
+Getting Started
+---------------
 
-Create a simple API that follows the
-[forecast.io development docs nomenclature](https://developer.forecast.io).
-I don't really plan to do anything fancy, but I do want to make sure this
-API is super simple, straightforward, and performant.
+Create a ForecastioWrapper instance and supply it with your API key.
 
-
-Example
--------
+> If you don't have an API key, get a free one from the
+> [forecastio developer portal](https://developer.forecast.io/).
 
 ```python
-def _pretty_json(data):
-    print json.dumps(data, sort_keys=True, indent=4, separators=(',', ': '))
+from forecastiowrap import ForecastioWrapper
 
+API_KEY = 'fba3b9ccabb3c66e29a4f18e7502d126'
 
-def get_request_json():
-    """Get the raw JSON response from an API call."""
-    json_response = get_json(37.8267, -122.423)
-    print _pretty_json(json_response)
-
-
-def get_request_json_with_time():
-    """Get the raw JSON response from an API call for a specific time."""
-    time_ = time()
-    json_response = get_json(37.8267, -122.423, time_)
-    print _pretty_json(json_response)
-
-
-def get_location_object():
-    """Serialize an API request to a Location object representing all elements
-    of the API response (see models/location.py docstrings for more info).
-    """
-    location = get_location(37.8267, -122.423)
-    print 'Location', location
-    print 'Alerts', location.alerts
-    if location.alerts:
-        print 'Alert', location.alerts[0].description
-    print 'Currently', location.currently.temperature
-
-
-def get_multiple_locations():
-    """Serialize multiple coordinates into an iterable of Location objects."""
-    coords = ((34.2233, 77.9122), (27.7731, 82.6400))
-    locations = get_locations(coords)
-    for location in locations:
-        print location.currently.temperature
+forecastio = ForecastioWrapper(API_KEY)
 ```
 
+After you create a ForecastioWrapper instance, you have a controller for making
+requests to the forecastio restful API and serializing the forecastio JSON
+responses into pythonic models.
+
+```python
+# 27.7731 N, 82.6400 W   (Saint Petersburg, Florida, USA)
+location = forecastio.get_location(27.7731, 82.6400)
+
+current_temp = location.currently.temperature
+feels_temp = location.currently.apparentTemperature
+
+daily_forecast = location.daily     # 7 day forecast
+hourly_forecast = location.hourly   # next 49 hours if weather
+```
+
+Read below for more in-depth documention on how the JSON responses are modeled.
+
+The Location model
+------------------
+
+The main model is Location. It serializes a response from the forecastio 
+API request to Python objects.
+
+Attribute | Use
+--------- | ----------
+minutely  | contains list of minute models
+hourly    | contains list of hourly models
+daily     | contains a list of day models
+alerts    | contains a list of alert models
+flags     | contains attributes representing flags for the response
+currently | contains attributes representing the current weather
+latitude  | the latitude of the location for the forecast
+longitude | the longitude of the location for the forecast
+offset    | the timezone UTC offset
+timezone  | the timezone for the request
+from_json | create a Location from a forecastio JSON response
+
+#### Weather forecast data points
+
+Currently	|	Minute	|	Hour	|	Day
+------------	|	------------	|	------------	|	------------
+apparentTemperature	|		|	apparentTemperature	|	apparentTemperatureMax
+ cloudCover	|		|	 cloudCover	|	 apparentTemperatureMaxTime
+ dewPoint	|		|	 dewPoint	|	 apparentTemperatureMin
+ from_json	|		|	 from_json	|	 apparentTemperatureMinTime
+ humidity	|		|	 humidity	|	 cloudCover
+ icon	|		|	 icon	|	 dewPoint
+ nearestStormBearing	|		|	 nearestStormBearing	|	 from_json
+ nearestStormDistance	|		|	 nearestStormDistance	|	 humidity
+ ozone	|		|	 ozone	|	 icon
+ precipIntensity	|		|	 precipIntensity	|	 moonPhase
+ precipIntensityError	|		|	 precipIntensityError	|	 ozone
+ precipProbability	|		|	 precipProbability	|	 precipIntensity
+ precipType	|		|	 precipType	|	 precipIntensityMax
+ pressure	|		|	 pressure	|	 precipIntensityMaxTime
+ summary	|		|	 summary	|	 precipProbability
+ temperature	|		|	 temperature	|	 precipType
+ time	|		|	 time	|	 pressure
+ time_	|		|	 time_	|	 summary
+ visibility	|		|	 visibility	|	 sunriseTime
+ windBearing	|		|	 windBearing	|	 sunsetTime
+ windSpeed	|		|	 windSpeed	|	 temperatureMax
+	|		|		|	 temperatureMaxTime
+	|		|		|	 temperatureMin
+	|		|		|	 temperatureMinTime
+	|		|		|	 time
+	|		|		|	 time_
+	|		|		|	 visibility
+	|		|		|	 windBearing
+	|		|		|	 windSpeed
+	
+#### Misc data points
+
+Alerts	|	Flags
+------------	|	------------
+from_json	|	darksky_stations
+ items	|	 darksky_unavailable
+ model	|	 datapoint_stations
+	|	 from_json
+	|	 isd_stations
+	|	 lamp_stations
+	|	 madis_stations
+	|	 metar_stations
+	|	 sources
+	|	 units
+
+#### Managers of lists of data points
+
+Minutely	|	Hourly	|	Daily
+------------	|	------------	|	------------
+data	|	data	|	data
+ from_json	|	 from_json	|	 from_json
+ icon	|	 icon	|	 icon
+ items	|	 items	|	 items
+ model	|	 model	|	 model
+ summary	|	 summary	|	 summary
 
 Contact
 -------

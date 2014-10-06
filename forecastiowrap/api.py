@@ -25,7 +25,7 @@ class ForecastioWrapper(object):
         :type api_key: basestring
         """
         self.api_key = api_key
-        self.api_url_prefix = self.API_URL_FMT % api_key
+        self.api_url_prefix = self.API_URL_FMT.format(api_key)
 
     def _get_api_response(self, url):
         response = requests.get(url)
