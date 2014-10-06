@@ -22,12 +22,8 @@ Getting Started
 
 Create a ForecastioWrapper instance and supply it with your API key.
 
-> If you don't have a key, get a free one from the
-> [forecastio developer portal](https://developer.forecast.io/)
-
-After you create a ForecastioWrapper instance, you have a controller for making
-requests to the forecastio restful API and serializing the forecastio JSON
-responses into pythonic models.
+> If you don't have an API key, get a free one from the
+> [forecastio developer portal](https://developer.forecast.io/).
 
 ```python
 from forecastiowrap import ForecastioWrapper
@@ -35,12 +31,25 @@ from forecastiowrap import ForecastioWrapper
 API_KEY = 'fba3b9ccabb3c66e29a4f18e7502d126'
 
 forecastio = ForecastioWrapper(API_KEY)
-# 27.7731 N, 82.6400 W   (Saint Petersburg, Florida, USA)
-location = forecastio.get_location(27.7731, 82.6400)
 ```
 
-Docs
-----
+After you create a ForecastioWrapper instance, you have a controller for making
+requests to the forecastio restful API and serializing the forecastio JSON
+responses into pythonic models.
+
+```python
+# 27.7731 N, 82.6400 W   (Saint Petersburg, Florida, USA)
+location = forecastio.get_location(27.7731, 82.6400)
+
+current_temp = location.currently.temperature
+feels_temp = location.currently.apparentTemperature
+
+daily_forecast = location.daily     # 7 day forecast
+hourly_forecast = location.hourly   # next 49 hours if weather
+```
+
+The Location Model
+------------------
 
 
 Contact

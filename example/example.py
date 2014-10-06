@@ -7,6 +7,9 @@ forecastio = ForecastioWrapper(API_KEY)
 
 # 27.7731 N, 82.6400 W  ==  Saint Petersburg, Florida, USA
 location = forecastio.get_location(27.7731, 82.6400)
+print location.hourly
+import sys
+sys.exit()
 print(location)
 print(location.hourly[0].temperature)
 pprint([attr for attr in dir(location) if not attr.startswith('_')])
