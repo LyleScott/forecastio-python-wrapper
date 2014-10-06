@@ -53,7 +53,7 @@ Read below for more in-depth documention on how the JSON responses are modeled.
 The Location Model
 ------------------
 
-### Holds lists of weather items.
+Holds lists of weather items.
 * currently
 * minutely
 * hourly
@@ -61,14 +61,20 @@ The Location Model
 * alerts
 * flags
 
-### Location attributes.
+Location attributes.
 * latitude
 * longitude
 * offset
 * timezone
 
-### Utility method to create a Location from a forecastio JSON response.
+Utility method to create a Location from a forecastio JSON response.
 * from_json
+
+| currently | Minutely | Hourly | Daily 
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
 
 
 Contact
