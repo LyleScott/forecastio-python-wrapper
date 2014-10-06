@@ -50,20 +50,19 @@ hourly_forecast = location.hourly   # next 49 hours if weather
 
 Read below for more in-depth documention on how the JSON responses are modeled.
 
-Models
+The Location model
 ------------------
 
 The main model is Location. It serializes a response from the forecastio 
-API request.
+API request to Python objects.
 
-Attributes containing weather lists.
-* minutely
-* hourly
+It contains the following attributes:
+
+* minutely (contains list of minute models)
+* hourly   (contains list of hourly models)
 * daily
 * alerts
 * flags
-
-Location attributes.
 * currently
 * latitude
 * longitude
