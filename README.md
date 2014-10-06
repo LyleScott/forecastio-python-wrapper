@@ -56,7 +56,7 @@ The Location model
 The main model is Location. It serializes a response from the forecastio 
 API request to Python objects.
 
-Attribute | 
+Attribute | Use
 --------- | ----------
 minutely  | contains list of minute models
 hourly    | contains list of hourly models
