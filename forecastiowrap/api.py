@@ -1,6 +1,7 @@
 from datetime import date, datetime
 
 import requests
+from dateutil.parser import parse as dateparse
 
 from forecastiowrap.models import Location
 
@@ -88,18 +89,16 @@ class ForecastioWrapper(object):
             elif isinstance(time, date):
                 time = date.strftime('%s')
             else:
-                # It better be a string...just in case, run some sanity checks against the input.
-                valueError = ValueError(
+                """
+                try:
+                    time = dateparse(time)
+                except:
+                    # It better be a string...just in case, run some sanity checks against the input.
+                    raise ValueError(
                         'time must be an epoch, date, datetime, or a string in the format of '
                         '[YYYY]-[MM]-[DD]T[HH]:[MM]:[SS][{+,-}[HH][MM]]')
-                try:
-                    int(time)
-                    assert isinstance(time, (int, basestring))
-                    assert len(str(time)) == 10
-                except ValueError:
-                    raise valueError
-                except AssertionError:
-                    raise valueError
+                """
+                pass
 
             url += ',{}'.format(time)
         url += '?'
