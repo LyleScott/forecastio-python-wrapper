@@ -1,3 +1,5 @@
+import json
+
 
 class Location(object):
     """A model to serialize an API request to a Python object.
@@ -96,4 +98,5 @@ class Location(object):
         :return: The model instance built from the JSON data.
         :rtype: Location
         """
+        data = json.loads(data)
         return cls(**data)
