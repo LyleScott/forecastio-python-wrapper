@@ -3,10 +3,10 @@ forecastio-python-wrapper
 
 A Python wrapper for the [forcastio API service](https://forecast.io).
 
-This projects provides a way to serialize a forecastio JSON response into
-python models that make navigating weather data straightforward.
+The purpose is to facilitate simple querying of weather data via a pythonic interface and to
+provide serialization of responses into pythonic models.
 
-This library is still in some development flux as I use it more and fill in the
+NOTE: This library is still in some development flux as I use it more and fill in the
 gaps. It is very usable, as I use it in some live projects.
 
 Getting Started
@@ -20,7 +20,8 @@ Create a ForecastioWrapper instance and supply it with your API key.
 ```python
 from forecastiowrap import ForecastioWrapper
 
-API_KEY = 'fba3b9ccabb3c66e29a4f18e7502d126'
+# Your key from https://developer.forecast.io
+API_KEY = '123abcccabb3c66e29a4f18e7502d126'
 
 forecastio = ForecastioWrapper(API_KEY)
 ```
